@@ -93,6 +93,56 @@ class Solution:
         return all_subsets
 ```
 
+Here’s a **visual representation using a recursion tree** for the input `nums = [1, 2, 2]` with the backtracking logic from the `subsetsWithDup` function.
+
+---
+
+## 🌳 **Recursion Tree for `nums = [1, 2, 2]`**
+
+We sort the array → `[1, 2, 2]`
+
+Each level in the tree represents a decision:
+
+* **Include** the current number
+* **Exclude** the current number
+
+---
+
+## 🪜 Step-by-Step Tree Traversal
+
+1. Start with empty subset `[]` at index `0`
+
+   * Include `1` → `[1]`✅
+
+     * Include `2` → `[1, 2]`
+
+       * Include second `2` → `[1, 2, 2]` ✅
+       * Exclude second `2` → `[1, 2]` ✅
+     * Exclude first `2` → skip second `2` (since prev\_included = False) 🔥 Pruned
+   * Exclude `1` → `[]`✅
+
+     * Include `2` → `[2]`
+
+       * Include second `2` → `[2, 2]` ✅
+       * Exclude second `2` → `[2]` ✅
+     * Exclude first `2` → skip second `2` 🔥 Pruned
+
+---
+
+## ✅ Final Unique Subsets Collected:
+
+```
+[[], [1], [1,2], [1,2,2], [2], [2,2]]
+```
+
+---
+
+## 🎯 Insights:
+
+* Pruning happens **only** when we have a **duplicate element**, and the **previous same element was skipped**.
+* This ensures that each duplicate contributes **only once** for each inclusion path, preventing results like `[2, 2]` and `[2, 2]` again.
+
+Would you like this visual as a **diagram image** (tree-style drawing)?
 
 ---
 
@@ -108,4 +158,76 @@ class Solution:
 This solution uses **backtracking with smart pruning** to avoid duplicates, taking advantage of sorting and tracking inclusion decisions to efficiently generate all unique subsets of an array with potential duplicates.
 
 ---
+### Code with comments to show the flow
+```python
+from typing import List
 
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()  # Sort to bring duplicates together
+        all_subsets = []    # Final result list to hold all unique subsets
+        current_subset = [] # Temporary list to build subsets
+
+        def backtrack(index: int, prev_included: bool, depth: int):
+            indent = "  " * depth  # Indentation for visualization
+            
+            if index == len(nums):
+                print(f"{indent}✅ Adding subset: {current_subset}")
+                all_subsets.append(current_subset[:])
+                return
+
+            # Exclude current number
+            print(f"{indent}Exclude nums[{index}] = {nums[index]}")
+            backtrack(index + 1, False, depth + 1)
+
+            # Prune if current number is same as previous and previous was not included
+            if index > 0 and nums[index] == nums[index - 1] and not prev_included:
+                print(f"{indent}🔥 Pruned duplicate nums[{index}] = {nums[index]}")
+                return
+
+            # Include current number
+            current_subset.append(nums[index])
+            print(f"{indent}Include nums[{index}] = {nums[index]}")
+            backtrack(index + 1, True, depth + 1)
+            current_subset.pop()
+            print(f"{indent}Backtrack (removed {nums[index]})")
+
+        backtrack(0, False, 0)
+        return all_subsets
+
+# Example Usage
+solution = Solution()
+result = solution.subsetsWithDup([1, 2, 2])
+print("\nFinal Result:", result)
+```
+---
+```
+Exclude nums[0] = 1
+  Exclude nums[1] = 2
+    Exclude nums[2] = 2
+      ✅ Adding subset: []
+    🔥 Pruned duplicate nums[2] = 2
+  Include nums[1] = 2
+    Exclude nums[2] = 2
+      ✅ Adding subset: [2]
+    Include nums[2] = 2
+      ✅ Adding subset: [2, 2]
+    Backtrack (removed 2)
+  Backtrack (removed 2)
+Include nums[0] = 1
+  Exclude nums[1] = 2
+    Exclude nums[2] = 2
+      ✅ Adding subset: [1]
+    🔥 Pruned duplicate nums[2] = 2
+  Include nums[1] = 2
+    Exclude nums[2] = 2
+      ✅ Adding subset: [1, 2]
+    Include nums[2] = 2
+      ✅ Adding subset: [1, 2, 2]
+    Backtrack (removed 2)
+  Backtrack (removed 2)
+Backtrack (removed 1)
+
+Final Result: [[], [2], [2, 2], [1], [1, 2], [1, 2, 2]]
+```
+---
