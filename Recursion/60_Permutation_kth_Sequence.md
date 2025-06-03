@@ -119,11 +119,6 @@ class Solution:
             # Using math.ceil and subtracting 1 to handle 1-indexing correctly
             index = math.ceil(k / group_size) - 1
             
-            # Handle edge case where k is exactly divisible by group_size
-            # In this case, we want the last element of the previous group
-            if k % group_size == 0:
-                index = k // group_size - 1
-            
             # Add the chosen number to result
             res.append(str(nums_list[index]))
             
