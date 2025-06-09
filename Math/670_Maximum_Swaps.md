@@ -171,6 +171,42 @@ class Solution:
 * Code clarity matters: **use meaningful variable names**
 * Discuss time complexity: **O(n)** for one pass and digit lookup
 
----
 
-Let me know if you'd like this exported as a PDF or if you'd like the diagram(s) visualized with arrows.
+---
+```python
+def maximumSwap(num: int) -> int:
+    # Step 1: Convert to list of digits
+    digits = list(str(num))
+    n = len(digits)
+    
+    # Step 2: Create next_greater array from right to left
+    max_digit = digits[-1]
+    next_greater = [''] * n
+    next_greater[-1] = max_digit
+    
+    for i in range(n - 2, -1, -1):
+        if digits[i] > max_digit:
+            max_digit = digits[i]
+        next_greater[i] = max_digit
+
+    # Step 3: Traverse from left to right to find first swap opportunity
+    for i in range(n):
+        if digits[i] < next_greater[i]:
+            target = next_greater[i]
+            swap_index_left = i
+            
+            # Find rightmost index with the target digit
+            for j in range(n - 1, -1, -1):
+                if digits[j] == target:
+                    swap_index_right = j
+                    break
+            
+            # Perform the swap
+            digits[swap_index_left], digits[swap_index_right] = digits[swap_index_right], digits[swap_index_left]
+            return int(''.join(digits))
+    
+    # If no swap needed
+    return num
+    
+```
+---
