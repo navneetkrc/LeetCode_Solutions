@@ -14,7 +14,7 @@ A comprehensive collection of recursive programming problems with detailed expla
 
 ---
 
-## 1. Print Name N Times (Limited to 5)
+## 1. Print Name N Times (Limited to 5) 
 
 **Problem:** Write a recursive function that prints a given name n times, but limits the output to a maximum of 5 repetitions.
 
