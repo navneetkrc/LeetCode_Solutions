@@ -202,6 +202,342 @@
 
 ---
 
+# 📚 Greg Hogg - Array & String Interview Questions
+
+> 📺 [Watch the Playlist](https://www.youtube.com/playlist?list=PLKYEe2WisBTFlP0RlwfwPrdkvHrcTBUg-)
+> ✅ 18 Handpicked Questions from Top Interviews | Updated June 2025
+
+---
+
+## 🔍 Summary of Problems with Code Snippets
+
+### 1. Closest Number *(Amazon)*
+
+🔗 [Video](https://www.youtube.com/watch?v=dLlKA5DQKYs)
+
+No direct Leetcode equivalent. Implement a linear scan or binary search for closest number.
+
+**Interview Tip:** Clarify whether to return the number itself or its index.
+
+---
+
+### 2. Merge Strings Alternatively *(Walmart Labs)*
+
+🔗 [Leetcode 1768](https://leetcode.com/problems/merge-strings-alternately/)
+
+```python
+def mergeAlternately(word1, word2):
+    result = []
+    for a, b in zip(word1, word2):
+        result.append(a + b)
+    result.append(word1[len(word2):])
+    result.append(word2[len(word1):])
+    return ''.join(result)
+```
+
+---
+
+### 3. Roman to Integer *(Amazon, Facebook)*
+
+🔗 [Leetcode 13](https://leetcode.com/problems/roman-to-integer/)
+
+```python
+def romanToInt(s):
+    roman = {'I': 1, 'V': 5, 'X': 10, 'L': 50,
+             'C': 100, 'D': 500, 'M': 1000}
+    total = 0
+    for i in range(len(s)):
+        if i > 0 and roman[s[i]] > roman[s[i - 1]]:
+            total += roman[s[i]] - 2 * roman[s[i - 1]]
+        else:
+            total += roman[s[i]]
+    return total
+```
+
+---
+
+### 4. Is Subsequence *(Adobe)*
+
+🔗 [Leetcode 392](https://leetcode.com/problems/is-subsequence/)
+
+```python
+def isSubsequence(s, t):
+    i = 0
+    for char in t:
+        if i < len(s) and s[i] == char:
+            i += 1
+    return i == len(s)
+```
+
+---
+
+### 5. Longest Common Prefix *(Google)*
+
+🔗 [Leetcode 14](https://leetcode.com/problems/longest-common-prefix/)
+
+```python
+def longestCommonPrefix(strs):
+    if not strs:
+        return ""
+    prefix = strs[0]
+    for word in strs[1:]:
+        while not word.startswith(prefix):
+            prefix = prefix[:-1]
+    return prefix
+```
+
+---
+
+### 6. Best Time to Buy and Sell Stock *(Amazon, Bloomberg)*
+
+🔗 [Leetcode 121](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
+
+```python
+def maxProfit(prices):
+    min_price = float('inf')
+    max_profit = 0
+    for price in prices:
+        min_price = min(min_price, price)
+        max_profit = max(max_profit, price - min_price)
+    return max_profit
+```
+
+---
+
+### 7. Summary Ranges *(Microsoft)*
+
+🔗 [Leetcode 228](https://leetcode.com/problems/summary-ranges/)
+
+```python
+def summaryRanges(nums):
+    result = []
+    i = 0
+    while i < len(nums):
+        start = i
+        while i + 1 < len(nums) and nums[i] + 1 == nums[i + 1]:
+            i += 1
+        if start == i:
+            result.append(str(nums[i]))
+        else:
+            result.append(f"{nums[start]}->{nums[i]}")
+        i += 1
+    return result
+```
+
+---
+
+### 8. Product of Array Except Self *(Google, Facebook)*
+
+🔗 [Leetcode 238](https://leetcode.com/problems/product-of-array-except-self/)
+
+```python
+def productExceptSelf(nums):
+    result = [1] * len(nums)
+    left = 1
+    for i in range(len(nums)):
+        result[i] = left
+        left *= nums[i]
+    right = 1
+    for i in range(len(nums) - 1, -1, -1):
+        result[i] *= right
+        right *= nums[i]
+    return result
+```
+
+---
+
+### 9. Merge Intervals *(Apple, Uber)*
+
+🔗 [Leetcode 56](https://leetcode.com/problems/merge-intervals/)
+
+```python
+def merge(intervals):
+    intervals.sort(key=lambda x: x[0])
+    merged = [intervals[0]]
+    for start, end in intervals[1:]:
+        if start <= merged[-1][1]:
+            merged[-1][1] = max(merged[-1][1], end)
+        else:
+            merged.append([start, end])
+    return merged
+```
+
+---
+
+### 10. Spiral Matrix *(Adobe, Amazon)*
+
+🔗 [Leetcode 54](https://leetcode.com/problems/spiral-matrix/)
+
+```python
+def spiralOrder(matrix):
+    result = []
+    while matrix:
+        result += matrix.pop(0)
+        if matrix and matrix[0]:
+            for row in matrix:
+                result.append(row.pop())
+        if matrix:
+            result += matrix.pop()[::-1]
+        if matrix and matrix[0]:
+            for row in matrix[::-1]:
+                result.append(row.pop(0))
+    return result
+```
+
+---
+
+### 11. Rotate Image *(Amazon)*
+
+🔗 [Leetcode 48](https://leetcode.com/problems/rotate-image/)
+
+```python
+def rotate(matrix):
+    matrix.reverse()
+    for i in range(len(matrix)):
+        for j in range(i):
+            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+```
+
+---
+
+### 12. Sort Colors *(Google)*
+
+🔗 [Leetcode 75](https://leetcode.com/problems/sort-colors/)
+
+```python
+def sortColors(nums):
+    low, mid, high = 0, 0, len(nums) - 1
+    while mid <= high:
+        if nums[mid] == 0:
+            nums[low], nums[mid] = nums[mid], nums[low]
+            low += 1
+            mid += 1
+        elif nums[mid] == 1:
+            mid += 1
+        else:
+            nums[mid], nums[high] = nums[high], nums[mid]
+            high -= 1
+```
+
+---
+
+### 13. ZigZag Conversion *(ByteDance)*
+
+🔗 [Leetcode 6](https://leetcode.com/problems/zigzag-conversion/)
+
+```python
+def convert(s, numRows):
+    if numRows == 1 or numRows >= len(s):
+        return s
+    rows = [''] * numRows
+    index, step = 0, 1
+    for char in s:
+        rows[index] += char
+        if index == 0:
+            step = 1
+        elif index == numRows - 1:
+            step = -1
+        index += step
+    return ''.join(rows)
+```
+
+---
+
+### 14. Merge Sorted Array *(Adobe)*
+
+🔗 [Leetcode 88](https://leetcode.com/problems/merge-sorted-array/)
+
+```python
+def merge(nums1, m, nums2, n):
+    while m > 0 and n > 0:
+        if nums1[m-1] > nums2[n-1]:
+            nums1[m+n-1] = nums1[m-1]
+            m -= 1
+        else:
+            nums1[m+n-1] = nums2[n-1]
+            n -= 1
+    nums1[:n] = nums2[:n]
+```
+
+---
+
+### 15. Remove Duplicates from Sorted Array *(Google)*
+
+🔗 [Leetcode 26](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
+
+```python
+def removeDuplicates(nums):
+    if not nums:
+        return 0
+    i = 0
+    for j in range(1, len(nums)):
+        if nums[j] != nums[i]:
+            i += 1
+            nums[i] = nums[j]
+    return i + 1
+```
+
+---
+
+### 16. Remove Duplicates II *(Microsoft)*
+
+🔗 [Leetcode 80](https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/)
+
+```python
+def removeDuplicates(nums):
+    i = 0
+    for n in nums:
+        if i < 2 or n != nums[i - 2]:
+            nums[i] = n
+            i += 1
+    return i
+```
+
+---
+
+### 17. Best Time to Buy and Sell Stock II *(Amazon, Bloomberg)*
+
+🔗 [Leetcode 122](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/)
+
+```python
+def maxProfit(prices):
+    profit = 0
+    for i in range(1, len(prices)):
+        if prices[i] > prices[i - 1]:
+            profit += prices[i] - prices[i - 1]
+    return profit
+```
+
+---
+
+### 18. H-Index *(Meta, IBM)*
+
+🔗 [Leetcode 274](https://leetcode.com/problems/h-index/)
+
+```python
+def hIndex(citations):
+    citations.sort(reverse=True)
+    for i, c in enumerate(citations):
+        if i >= c:
+            return i
+    return len(citations)
+```
+
+---
+
+## ✅ Interview Expectations
+
+* 📢 Clearly explain your approach step-by-step
+* ⚙️ Begin with a brute-force method, then optimize
+* ⏱ Time and space complexity must be mentioned
+* 📦 Discuss edge cases: empty input, sorted, reversed arrays
+* 🤝 Communicate with interviewer, confirm assumptions
+
+---
+
+> ✨ Master these 18 questions and you're well-prepared for most array and string interview rounds across FAANG, startups, and product-based companies!
+
+---
 For code solutions and detailed explanations, refer to Greg Hogg’s [YouTube playlist](https://www.youtube.com/playlist?list=PLKYEe2WisBTFlP0RlwfwPrdkvHrcTBUg-)[1].
 
 [1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/55174337/7dcae6d4-947c-467c-b40f-9895320576cf/1-Array-String-Questions-YouTube.pdf
