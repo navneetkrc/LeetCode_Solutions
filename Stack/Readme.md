@@ -303,18 +303,3 @@ def largestRectangleArea(heights):
 
 ---
 
----
-
-For detailed explanations and code solutions, refer to Greg Hogg’s [YouTube playlist](https://www.youtube.com/playlist?list=PLKYEe2WisBTH601scI_A008gm34oARlIp)[1].
-
-[1] https://dev.to/harshm03/50-stacks-leetcode-questions-2llc
-[2] https://pplx-res.cloudinary.com/image/private/user_uploads/55174337/a0bba1b7-542d-42f4-b547-2126e40b0046/Stack.jpg
-[3] https://www.youtube.com/playlist?list=PLKYEe2WisBTH601scI_A008gm34oARlIp
-[4] https://www.youtube.com/watch?v=vOx3vY1w4tM
-[5] https://www.youtube.com/watch?v=7-_V-ufnF4c
-[6] https://www.youtube.com/watch?v=EPwWrs8OtfI
-[7] https://github.com/xizhang20181005/Leetcode_company_frequency
-[8] https://www.youtube.com/watch?v=W_PZoQIaLZU
-[9] https://company-wise-leetcode-farneet.netlify.app
-[10] https://www.youtube.com/@GregHogg
-[11] https://leetcode.com/problem-list/re1f6rj1/
