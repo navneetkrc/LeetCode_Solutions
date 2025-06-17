@@ -1,17 +1,17 @@
 # Stack Interview Questions – Greg Hogg Playlist
 
-This document summarizes essential stack-related interview questions from Greg Hogg’s YouTube playlist, using the order and visual style from the attached image for consistency. Each entry includes a concise description, LeetCode link, and companies where the problem is frequently asked[1].
-
 ---
 
-## Table of Contents
+## 📚 Table of Contents
 
-1. [Baseball Game](#baseball-game)
-2. [Valid Parentheses](#valid-parentheses)
-3. [Daily Temperatures](#daily-temperatures)
-4. [Evaluate Reverse Polish Notation](#evaluate-reverse-polish-notation)
-5. [Min Stack](#min-stack)
-6. [Largest Rectangle in Histogram](#largest-rectangle-in-histogram)
+1. [Baseball Game](#1-baseball-game)
+2. [Valid Parentheses](#2-valid-parentheses)
+3. [Daily Temperatures](#3-daily-temperatures)
+4. [Evaluate Reverse Polish Notation](#4-evaluate-reverse-polish-notation)
+5. [Min Stack](#5-min-stack)
+6. [Largest Rectangle in Histogram](#6-largest-rectangle-in-histogram)
+7. [Visual Summary Table](#7-visual-summary-table)
+8. [Interview Tips & Expectations](#8-interview-tips--expectations)
 
 ---
 
@@ -84,25 +84,26 @@ This document summarizes essential stack-related interview questions from Greg H
 - **Practice:** Focus on problems involving parentheses matching, monotonic stacks, and expression evaluation[1].
 
 ---
-# ✅ Stack Interview Questions – Greg Hogg Playlist
 
-This document summarizes essential stack-related interview questions from Greg Hogg’s YouTube playlist, using the order and visual style from the attached image for consistency. Each entry includes a concise description, brute force & optimal approaches, code snippets, and interview expectations.
+## Interview Tips & Expectations
+
+### ✅ Key Expectations
+
+* Walk through **both brute force and optimal** clearly.
+* Be able to **simulate stack changes** step-by-step.
+* **Explain intuition** behind using stacks: matching, memory, undoing, etc.
+* Always **discuss edge cases**: empty input, invalid formats.
+
+### 💡 Advanced Tips
+
+* **Monotonic Stacks:** Often used in sliding window or range queries.
+* **Double Stack Approaches:** Useful in problems like *Min Stack*.
+* **Expression Parsing:** Understand operator precedence and associativity.
+* **Avoid Stack Overflow:** Use iterative where recursion causes depth issues.
 
 ---
-
-## 📚 Table of Contents
-
-1. [Baseball Game](#1-baseball-game)
-2. [Valid Parentheses](#2-valid-parentheses)
-3. [Daily Temperatures](#3-daily-temperatures)
-4. [Evaluate Reverse Polish Notation](#4-evaluate-reverse-polish-notation)
-5. [Min Stack](#5-min-stack)
-6. [Largest Rectangle in Histogram](#6-largest-rectangle-in-histogram)
-7. [Visual Summary Table](#7-visual-summary-table)
-8. [Interview Tips & Expectations](#8-interview-tips--expectations)
-
+Approaches
 ---
-
 ## 1. Baseball Game
 
 * **Description:** Simulate baseball score tracking with stack operations.
@@ -301,35 +302,6 @@ def largestRectangleArea(heights):
 ✅ **Expectation:** Draw the histogram, walk through steps.
 
 ---
-
-## 7. Visual Summary Table
-
-| Problem                          | LeetCode Link                                                          | Companies                             |
-| -------------------------------- | ---------------------------------------------------------------------- | ------------------------------------- |
-| Baseball Game                    | [682](https://leetcode.com/problems/baseball-game/)                    | Amazon, Google, Facebook, Walmart     |
-| Valid Parentheses                | [20](https://leetcode.com/problems/valid-parentheses/)                 | Facebook, Amazon, Microsoft, Adobe    |
-| Daily Temperatures               | [739](https://leetcode.com/problems/daily-temperatures/)               | Amazon, Google, Microsoft, Salesforce |
-| Evaluate Reverse Polish Notation | [150](https://leetcode.com/problems/evaluate-reverse-polish-notation/) | Amazon, Google, Bloomberg, SAP        |
-| Min Stack                        | [155](https://leetcode.com/problems/min-stack/)                        | Amazon, Google, Microsoft, Apple      |
-| Largest Rectangle in Histogram   | [84](https://leetcode.com/problems/largest-rectangle-in-histogram/)    | Google, Amazon, Facebook, Adobe       |
-
----
-
-## 8. Interview Tips & Expectations
-
-### ✅ Key Expectations
-
-* Walk through **both brute force and optimal** clearly.
-* Be able to **simulate stack changes** step-by-step.
-* **Explain intuition** behind using stacks: matching, memory, undoing, etc.
-* Always **discuss edge cases**: empty input, invalid formats.
-
-### 💡 Advanced Tips
-
-* **Monotonic Stacks:** Often used in sliding window or range queries.
-* **Double Stack Approaches:** Useful in problems like *Min Stack*.
-* **Expression Parsing:** Understand operator precedence and associativity.
-* **Avoid Stack Overflow:** Use iterative where recursion causes depth issues.
 
 ---
 
