@@ -70,6 +70,7 @@
 - **Description:** Find the maximum profit from a single buy and sell operation.
 - **LeetCode:** [LeetCode 121](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
 - **Companies:** Amazon, Facebook, Bloomberg[1].
+- **Imp:** focus on Minimum number of for loops and memory used
 
 ---
 
