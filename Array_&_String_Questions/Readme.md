@@ -327,7 +327,7 @@ def summaryRanges(nums):
 
 ---
 
-### 8. Product of Array Except Self *(Google, Facebook)*
+### 8. ✅ Product of Array Except Self *(Google, Facebook)* 
 
 🔗 [Leetcode 238](https://leetcode.com/problems/product-of-array-except-self/)
 
@@ -401,7 +401,7 @@ def rotate(matrix):
 
 ---
 
-### 12. Sort Colors *(Google)*
+### 12. ✅ Sort Colors *(Google)*
 
 🔗 [Leetcode 75](https://leetcode.com/problems/sort-colors/)
 
