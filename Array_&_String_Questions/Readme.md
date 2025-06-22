@@ -19,9 +19,9 @@
 13. ❓[ZigZag Conversion](#zigzag-conversion)
 14. ❓[Merge Sorted Array](#merge-sorted-array)
 15. ❓[Remove Duplicates from Sorted Array](#remove-duplicates-from-sorted-array)
-16. [Remove Duplicates from Sorted List II](#remove-duplicates-from-sorted-list-ii)
+16. ❓[Remove Duplicates from Sorted List II](#remove-duplicates-from-sorted-list-ii)
 17. [Best Time to Buy and Sell Stock II](#best-time-to-buy-and-sell-stock-ii)
-18. [H-Index](#h-index)
+18. ❓[H-Index](#h-index)
 
 ---
 
