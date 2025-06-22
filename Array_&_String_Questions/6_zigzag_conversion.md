@@ -1,7 +1,7 @@
 
 # 🧩 Zigzag Conversion – LeetCode #6
 
-## 📝 Problem Description
+## 📝 Problem Descriptions
 
 Given a string `s` and an integer `numRows`, write the string in a zigzag pattern on a given number of rows.
 
