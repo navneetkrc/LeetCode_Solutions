@@ -1,4 +1,11 @@
 # 🧠 Blind 75 LeetCode Progress Tracker
+Track your progress here
+
+**Leetcode Blind75 list**
+https://leetcode.com/problem-list/9mi87jxm/
+
+**Neetcode Blind 75 List**
+https://neetcode.io/practice?tab=blind75
 
 A comprehensive tracker for the famous Blind 75 algorithm problems, organized by topic for systematic practice.
 
