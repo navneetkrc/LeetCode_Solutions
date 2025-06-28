@@ -53,7 +53,7 @@ area = (count_left + count_right + 1) * heights[i]
 
 ---
 
-## 🧾 Python Code with Comments
+## 🧾 Brute-Force Python Code with Comments
 
 ```python
 from typing import List
@@ -135,3 +135,90 @@ This approach is:
 * Intuitive and interview-friendly.
 * Good for demonstrating expansion logic and area computation.
 * A stepping stone to optimized solutions.
+
+---
+
+## ⚙️ Optimized Approach: Monotonic Stack (O(n) Time)
+
+The **Monotonic Stack** approach allows us to efficiently determine the **next smaller element to the left and right** for every bar.
+
+### 🔧 Strategy:
+
+* Append a `0` at the end to flush the stack.
+* Maintain a stack with indices where the heights are **in increasing order**.
+* When a bar breaks this order, pop from the stack and compute area.
+
+### ✅ Python Code:
+
+```python
+class Solution:
+    def largestRectangleArea(self, heights: List[int]) -> int:
+        stack = []  # stack to store indices
+        max_area = 0
+        heights.append(0)  # add sentinel bar
+
+        for i, h in enumerate(heights):
+            while stack and heights[stack[-1]] > h:
+                height = heights[stack.pop()]
+                # If stack is empty, width = i
+                width = i if not stack else i - stack[-1] - 1
+                max_area = max(max_area, height * width)
+            stack.append(i)
+
+        return max_area
+```
+---
+### ✅ Python Code:
+
+```python
+from typing import List
+
+class Solution:
+    def largestRectangleArea(self, heights: List[int]) -> int:
+        num_bars = len(heights)
+        index_stack = []  # Stack to store (bar_height, start_index)
+        max_rectangle_area = 0
+
+        for current_index, current_height in enumerate(heights):
+            start_index = current_index
+
+            # Pop from stack while current bar is smaller than the top of the stack
+            while index_stack and current_height < index_stack[-1][0]:
+                previous_height, previous_index = index_stack.pop()
+                width = current_index - previous_index
+                area = previous_height * width
+                max_rectangle_area = max(max_rectangle_area, area)
+                start_index = previous_index  # Expand left boundary
+
+            # Push current bar with its effective start index
+            index_stack.append((current_height, start_index))
+
+        # Process remaining bars in the stack
+        while index_stack:
+            height, start_index = index_stack.pop()
+            width = num_bars - start_index
+            area = height * width
+            max_rectangle_area = max(max_rectangle_area, area)
+
+        return max_rectangle_area
+```
+
+
+### ⏱️ Complexity
+
+| Type  | Value |
+| ----- | ----- |
+| Time  | O(n)  |
+| Space | O(n)  |
+
+---
+
+## ✅ When to Use Which
+
+| Method          | Time  | Use Case                                   |
+| --------------- | ----- | ------------------------------------------ |
+| Expand from Min | O(n²) | Small input or when asked to brute-force   |
+| Monotonic Stack | O(n)  | Optimal for large inputs or production use |
+
+---
+
