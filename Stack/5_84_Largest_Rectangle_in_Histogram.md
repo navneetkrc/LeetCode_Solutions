@@ -222,3 +222,57 @@ class Solution:
 
 ---
 
+# 🧠 Monotonic Stack Visual Walkthrough – Largest Rectangle in Histogram
+
+Let's walk through the **Monotonic Stack** approach to solve **Leetcode 84** with a **step-by-step visual trace** using the input:
+
+```python
+heights = [2, 1, 5, 6, 2, 3]
+```
+
+We'll **append a 0** at the end to flush out remaining elements:
+
+```python
+heights = [2, 1, 5, 6, 2, 3, 0]
+```
+
+---
+
+## 🔄 Initialization
+
+* `stack = []`  → stores **indices**
+* `max_area = 0`
+
+---
+
+## 🎞️ Animated-Style Side-by-Side Trace
+
+Each frame shows the current state as we process the array.
+
+| Step | Index `i` | Height `h` | Stack Before | Action Taken                               | Stack After | max\_area |
+| ---- | --------- | ---------- | ------------ | ------------------------------------------ | ----------- | --------- |
+| 1    | 0         | 2          | \[]          | push (0)                                   | \[0]        | 0         |
+| 2    | 1         | 1          | \[0]         | pop (0 → height 2, width 1 = 2)            | \[1]        | 2         |
+| 3    | 2         | 5          | \[1]         | push (2)                                   | \[1, 2]     | 2         |
+| 4    | 3         | 6          | \[1, 2]      | push (3)                                   | \[1, 2, 3]  | 2         |
+| 5    | 4         | 2          | \[1, 2, 3]   | pop (3 → 6×1=6), pop (2 → 5×2=10), push(4) | \[1, 4]     | 10        |
+| 6    | 5         | 3          | \[1, 4]      | push (5)                                   | \[1, 4, 5]  | 10        |
+| 7    | 6         | 0          | \[1, 4, 5]   | pop (5 → 3×1=3), pop (4 → 2×4=8),          | \[6]        | 10        |
+|      |           |            | \[1]         | pop (1 → 1×6=6), push (6)                  | \[6]        | 10        |
+
+---
+
+## ✅ Final Result
+
+* **Max Area = 10**
+
+---
+
+## 🧠 Interpretation
+
+* The stack helps maintain an **increasing height sequence**.
+* When a smaller height is found, we know it's the right boundary for prior taller bars.
+* We compute the area for each popped bar using its height and the width between current and previous indices.
+
+---
+
