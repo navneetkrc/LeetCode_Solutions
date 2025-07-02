@@ -1,4 +1,4 @@
-## 🧱 Next Greater Element to the Right (NGER) — Interview Guide
+## 🧱 Next Greater Element to the Right (NGER)
 
 ---
 
