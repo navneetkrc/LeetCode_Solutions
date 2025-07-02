@@ -311,7 +311,7 @@ Imagine `nums[i]` is the **weakest link** in a chain; the value of the chain is 
 
 ---
 
-## 🧾 Final Cheat Sheet: Stack Patterns Recap
+## 🧾 Final Cheat Sheet: Stack Patterns Recap-> Use of Monotonic Increasing/Decreasing property
 
 | Problem                  | Pattern Type               | Strategy                   | Time |
 | ------------------------ | -------------------------- | -------------------------- | ---- |
