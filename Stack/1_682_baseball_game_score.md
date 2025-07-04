@@ -2,7 +2,8 @@
 
 ## 📋 Problem Description
 
-You are keeping scores for a baseball game with special rules. Starting with an empty record, you process a series of operations and return the final sum of all valid scores.
+You are keeping scores for a baseball game with special rules. 
+Starting with an empty record, you process a series of operations and return the final sum of all valid scores.
 
 ### 🎯 Operations Rules
 | Operation | Symbol | Action |
