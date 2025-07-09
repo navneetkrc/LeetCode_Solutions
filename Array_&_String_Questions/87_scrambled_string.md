@@ -41,7 +41,7 @@ Output: true
 
 ---
 
-## 💡 Key Insights for Interviews
+## 💡 Key Insights for Interviews 💡
 
 | Concept                  | Explanation                                                             |
 | ------------------------ | ----------------------------------------------------------------------- |
