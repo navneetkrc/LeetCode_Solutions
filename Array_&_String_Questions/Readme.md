@@ -195,7 +195,7 @@
 
 ---
 
-## Tips for Array & String Interviews
+## Tips for Array & String Interview Questions
 
 - **Techniques:** Master two pointers, sliding window, in-place operations, and prefix sums for these problems[1].
 - **Complexity:** Aim for O(n) time and O(1) or O(n) space, depending on constraints[1].
