@@ -1,5 +1,4 @@
 # 🧗‍♂️ Leetcode 70: Climbing Stairs
-
 ---
 
 ## 📘 Problem Description
@@ -30,7 +29,7 @@ Explanation: 1+1+1, 1+2, 2+1
 
 ## 🛠️ Approach 1: Bottom-Up Dynamic Programming (Tabulation)
 
-This is a variation of the **Fibonacci sequence**, where:
+This is a variation of the **Fibonacci sequences**, where:
 
 ```
 
