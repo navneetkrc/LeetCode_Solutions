@@ -1,6 +1,7 @@
 # 🌳 Binary Tree Interview Questions – Infographic Notes
 
 ---
+<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/511886e7-a037-4a85-ba64-5f2bf1008233" />
 
 
 ---
