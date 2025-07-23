@@ -2,12 +2,38 @@
 
 ## 📝 Problem Description
 
-Given a 2D grid map of `'1'`s (land) and `'0'`s (water), find the **maximum area** of an island.  
-An island is surrounded by water and is formed by **connecting adjacent lands** horizontally or vertically.  
-You may assume all four edges of the grid are surrounded by water.
+You are given an m x n binary matrix grid. An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical.) You may assume all four edges of the grid are surrounded by water.
 
+The area of an island is the number of cells with a value 1 in the island.
+
+Return the maximum area of an island in grid. If there is no island, return 0.
+
+ 
+
+Example 1:
 ---
 <img width="1053" height="653" alt="image" src="https://github.com/user-attachments/assets/1898e59a-ec02-4edb-83e4-2cb4aa2d4ed8" />
+
+---
+
+
+Input: grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]
+Output: 6
+Explanation: The answer is not 11, because the island must be connected 4-directionally.
+
+
+**Example 2:**
+
+Input: grid = [[0,0,0,0,0,0,0,0]]
+Output: 0
+ 
+
+Constraints:
+
+m == grid.length
+n == grid[i].length
+1 <= m, n <= 50
+grid[i][j] is either 0 or 1.
 
 ---
 ### 🔍 Constraints:
