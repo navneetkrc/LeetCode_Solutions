@@ -7,7 +7,8 @@
 **Link:** [Leetcode - Same Tree](https://leetcode.com/problems/same-tree/)  
 **Difficulty:** Easy
 
-Given the roots of two binary trees `p` and `q`, write a function to check if they are **the same** or not.
+Given the roots of two binary trees `p` and `q`, 
+write a function to check if they are **the same** or not.
 
 Two binary trees are considered the same if:
 - They are **structurally identical**, and
