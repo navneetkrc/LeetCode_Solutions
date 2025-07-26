@@ -35,7 +35,7 @@ Steps: 3 (first jump) + 4 (second jump) = 7
 
 This problem tests:
 
-* Understanding of geometry and movement
+* Understanding of geometry and movements
 * Optimal movement strategy (diagonal vs straight)
 * Clean looping through point pairs
 * **Explaining a greedy move intuition**
