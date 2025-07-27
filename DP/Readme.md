@@ -1,4 +1,4 @@
-# Dynamic Programming Interview Questions – Greg Hogg Playlist
+# Dynamic Programming Interview Questions by – Greg Hogg Playlist
 
 ---
 
