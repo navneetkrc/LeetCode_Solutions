@@ -1,4 +1,4 @@
-# 🧭 Leetcode 1266: Minimum Time Visiting All Points
+# 🧭 Leetcode 1266:-> Minimum Time Visiting All Points
 
 ---
 
