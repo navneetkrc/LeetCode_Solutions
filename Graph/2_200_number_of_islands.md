@@ -1,4 +1,4 @@
-# 🌊 Number of Islands – BFS & DFS Cheatsheet
+# 🌊 Number of Islands – using both BFS & DFS
 
 > Given a 2D grid of `'1'`s (land) and `'0'`s (water), count the number of **disconnected islands**. An island is surrounded by water and connected **horizontally or vertically** (not diagonally).
 
