@@ -136,7 +136,6 @@ Here's an improved version of your **Hashmap Interview Questions – Greg Hogg P
 
 ---
 
-````markdown
 # 📘 Hashmap Interview Questions – Greg Hogg Playlist
 
 > 📺 [Watch the Full Playlist](https://www.youtube.com/playlist?list=PLKYEe2WisBTFvzq98lMIhWfXH3KMTXZv0)  
@@ -168,12 +167,17 @@ Here's an improved version of your **Hashmap Interview Questions – Greg Hogg P
 - **LC:** [771. Jewels and Stones](https://leetcode.com/problems/jewels-and-stones/)
 - **Companies:** Amazon, Google, Facebook
 - **Code Insight:**
+
 ```python
 def numJewelsInStones(jewels, stones):
     jewel_set = set(jewels)
     return sum(c in jewel_set for c in stones)
-````
+```
 
+```python
+
+
+```
 ---
 
 ## 2. Ransom Note
@@ -184,11 +188,116 @@ def numJewelsInStones(jewels, stones):
 * **Companies:** Amazon, Microsoft
 * **Code Insight:**
 
+---
+
+### ✅ **Approach 1: Using `collections.Counter` and subtraction**
+
 ```python
 from collections import Counter
+
 def canConstruct(ransomNote, magazine):
+    # Create frequency counters for ransomNote and magazine
+    # Counter('aab') → {'a': 2, 'b': 1}
+    # Counter subtraction removes keys with negative or zero counts
+    # So if ransomNote needs more of any character than magazine has, it will show up in the subtraction
+
     return not (Counter(ransomNote) - Counter(magazine))
+    # If the subtraction is empty (i.e., {}), ransomNote can be constructed → return True
+    # If it has any items (like {'a': 1}), that means magazine lacks enough characters → return False
 ```
+
+#### ✅ Pros:
+
+* Very **concise and elegant**.
+* Automatically handles character frequencies.
+* Clean one-liner using Python's built-in tools.
+
+#### ❌ Cons:
+
+* Slightly **less readable** for beginners.
+* Internally still builds two dictionaries (one for each string).
+
+---
+
+### ✅ **Approach 2: Using `count()` on each unique char**
+
+```python
+class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        # Optimization: if ransomNote is longer, it's impossible to construct
+        if len(ransomNote) > len(magazine):
+            return False
+
+        # Iterate over each unique character in ransomNote
+        for ch in set(ransomNote):
+            # Count the number of times the character appears in both ransomNote and magazine
+            # If magazine has fewer occurrences of the character, return False
+            if magazine.count(ch) < ransomNote.count(ch):
+                return False
+
+        # All characters exist in sufficient quantity
+        return True
+```
+
+#### ✅ Pros:
+
+* Simple and readable.
+* No external imports.
+
+#### ❌ Cons:
+
+* `str.count()` is **O(n)** each time it runs, and it's called once per unique character → **O(k \* n)** where k = unique chars.
+* **Inefficient for large strings**.
+
+---
+
+### ✅ **Approach 3: Manual dictionary counting**
+
+```python
+class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        
+        magazine_counter = {}
+
+        # Count frequency of each character in magazine
+        for c in magazine:
+            if c in magazine_counter:
+                magazine_counter[c] += 1
+            else:
+                magazine_counter[c] = 1
+
+        # For each character in ransomNote, check if it's present and has enough count
+        for char in ransomNote:
+            if char not in magazine_counter or magazine_counter[char] == 0:
+                return False  # not enough characters
+
+            # Use one occurrence of the character
+            magazine_counter[char] -= 1
+        
+        # All characters matched
+        return True
+```
+
+#### ✅ Pros:
+
+* Fully manual – helps with **understanding frequency-based logic**.
+* **Efficient** – O(n + m) time complexity (n = len(magazine), m = len(ransomNote)).
+
+#### ❌ Cons:
+
+* Slightly more verbose than Counter-based version.
+* Can be replaced by built-in tools in real-world code.
+
+---
+
+### 🧠 Summary Table:
+
+| Approach                | Time Complexity | Space Complexity                    | Pros               | Cons                         |
+| ----------------------- | --------------- | ----------------------------------- | ------------------ | ---------------------------- |
+| **Counter Subtraction** | O(n + m)        | O(1) (at most 26 lowercase letters) | One-liner, elegant | Less readable                |
+| **String `count()`**    | O(k \* n)       | O(1)                                | Simple, no imports | Inefficient for large inputs |
+| **Manual Dict**         | O(n + m)        | O(1)                                | Clear, performant  | Slightly verbose             |
+
 
 ---
 
@@ -199,11 +308,57 @@ def canConstruct(ransomNote, magazine):
 * **Companies:** Amazon, Google
 * **Code Insight:**
 
+Here are the approaches with single-line comments explaining each and consistent markdown formatting. I've also given descriptive names to each solution.
+
+### 1. Set Length Comparison (One-Liner)
 ```python
+# Approach 1: Return True if removing duplicates changes the length
 def containsDuplicate(nums):
     return len(nums) != len(set(nums))
 ```
 
+### 2. Set Length Comparison (With Variable)
+```python
+# Approach 2: Use a flag and compare list length to set length
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        dup_flag = False
+        if len(nums) > len(set(nums)):
+            dup_flag = True
+        
+        return dup_flag
+```
+
+### 3. HashSet for Early Exit (Seen Set)
+```python
+# Approach 3: Use a set to track seen items, return early upon finding a duplicate
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        seen = set()  # Store unique values we've seen so far
+        
+        for num in nums:
+            if num in seen:
+                return True  # Found duplicate
+            seen.add(num)  # Mark this number as seen
+        
+        return False  # No duplicates found
+```
+
+### 4. Dictionary Frequency Map
+```python
+# Approach 4: Use a dict to count occurrences, return on first duplicate
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        count_map = {}  # Dictionary to track frequency
+        
+        for num in nums:
+            if num in count_map:
+                return True  # Duplicate found
+            else:
+                count_map[num] = 1  # First occurrence
+        
+        return False  # No duplicates
+```
 ---
 
 ## 4. Maximum Number of Balloons
@@ -213,13 +368,33 @@ def containsDuplicate(nums):
 * **Companies:** Amazon
 * **Code Insight:**
 
+
+### 1. Counter One-Liner Approach
 ```python
+# Approach 1: Use Counter and directly compute required minimum with letter count adjustments
 from collections import Counter
 def maxNumberOfBalloons(text):
     count = Counter(text)
     return min(count['b'], count['a'], count['l']//2, count['o']//2, count['n'])
 ```
 
+### 2. Manual Frequency Map Approach
+```python
+# Approach 2: Manually count frequencies, adjust for multi-occurrence letters, then return the smallest count
+class Solution:
+    def maxNumberOfBalloons(self, text: str) -> int:
+        count_map = {'b':0, 'a':0, 'l':0, 'o':0, 'n':0}
+        
+        for char in text:
+            if char in count_map:
+                count_map[char] += 1
+
+        # Divide by 2 for 'l' and 'o' as they appear twice in 'balloon'
+        count_map['l'] //= 2
+        count_map['o'] //= 2
+
+        return min(count_map.values())
+```
 ---
 
 ## 5. Valid Sudoku
