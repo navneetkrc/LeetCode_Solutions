@@ -77,32 +77,40 @@ Recursively explore in 4 directions and **return area = 1 + sum of neighbors**.
 - “We use recursion to accumulate island size.”
 
 ```python
+from typing import List
+
 class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
-        rows, cols = len(grid), len(grid[0])
-        
-        def dfs(row: int, col: int) -> int:
-            # Boundary or water check
-            if row < 0 or row >= rows or col < 0 or col >= cols or grid[row][col] != 1:
+        total_rows, total_cols = len(grid), len(grid[0])
+
+        def compute_area(row: int, col: int) -> int:
+            # Base case: Out of bounds or not land
+            if row < 0 or row >= total_rows or col < 0 or col >= total_cols or grid[row][col] != 1:
                 return 0
-            
+
             grid[row][col] = -1  # Mark cell as visited
-            # Explore all 4 directions and return cumulative area
-            return (1 +
-                    dfs(row + 1, col) +
-                    dfs(row - 1, col) +
-                    dfs(row, col + 1) +
-                    dfs(row, col - 1))
-        
+
+            # Recursively explore in all 4 directions and count the land cells
+            return (
+                1 + 
+                compute_area(row + 1, col) +
+                compute_area(row - 1, col) +
+                compute_area(row, col + 1) +
+                compute_area(row, col - 1)
+            )
+
         max_island_area = 0
-        for row in range(rows):
-            for col in range(cols):
-                if grid[row][col] == 1:
-                    island_area = dfs(row, col)
-                    max_island_area = max(max_island_area, island_area)
+
+        # Explore each cell in the grid
+        for current_row in range(total_rows):
+            for current_col in range(total_cols):
+                if grid[current_row][current_col] == 1:
+                    current_area = compute_area(current_row, current_col)
+                    max_island_area = max(max_island_area, current_area)
 
         return max_island_area
-````
+
+```
 
 ### 🧪 Time & Space Complexity:
 
