@@ -9,59 +9,7 @@ Given an array of strings `strs`, group the anagrams together. You can return th
 
 ---
 
-## ✅ Brute Force Solution (Using Sorted Strings)
-
-```python
-from collections import defaultdict
-from typing import List
-
-class Solution:
-    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        anagram_groups = defaultdict(list)
-
-        for word in strs:
-            key = ''.join(sorted(word))  # Sorting as the signature
-            anagram_groups[key].append(word)
-
-        return list(anagram_groups.values())
-````
-
-### ⏱ Time Complexity
-
-* **O(n × m log m)** — `n` words, each of length up to `m` (sorted per word)
-
-### 📦 Space Complexity
-
-* **O(n × m)** — storing all words in groups + keys
-
----
-
-### 🔍 Brute Force – Step-by-Step Example
-
-**Input:**
-
-```python
-strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
-```
-
-| Step | Word  | Sorted Key | Dictionary State                        |
-| ---- | ----- | ---------- | --------------------------------------- |
-| 1    | "eat" | `"aet"`    | `{ "aet": ["eat"] }`                    |
-| 2    | "tea" | `"aet"`    | `{ "aet": ["eat", "tea"] }`             |
-| 3    | "tan" | `"ant"`    | `{ "aet": [...], "ant": ["tan"] }`      |
-| 4    | "ate" | `"aet"`    | `{ "aet": [..., "ate"], "ant": [...] }` |
-| 5    | "nat" | `"ant"`    | `{ "aet": [...], "ant": [..., "nat"] }` |
-| 6    | "bat" | `"abt"`    | `{ ..., "abt": ["bat"] }`               |
-
-**Output:**
-
-```python
-[["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
-```
-
----
-
-## ⚡ Optimized Solution (Using Character Count Signature)
+## ⚡ Interview Ready Optimized Solution (Using Character Count Signature)
 
 ```python
 from collections import defaultdict
@@ -114,6 +62,58 @@ strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
 [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
 ```
 
+---
+---
+
+## ✅ Brute Force Solution (Using Sorted Strings)
+
+```python
+from collections import defaultdict
+from typing import List
+
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        anagram_groups = defaultdict(list)
+
+        for word in strs:
+            key = ''.join(sorted(word))  # Sorting as the signature
+            anagram_groups[key].append(word)
+
+        return list(anagram_groups.values())
+````
+
+### ⏱ Time Complexity
+
+* **O(n × m log m)** — `n` words, each of length up to `m` (sorted per word)
+
+### 📦 Space Complexity
+
+* **O(n × m)** — storing all words in groups + keys
+
+---
+
+### 🔍 Brute Force – Step-by-Step Example
+
+**Input:**
+
+```python
+strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+```
+
+| Step | Word  | Sorted Key | Dictionary State                        |
+| ---- | ----- | ---------- | --------------------------------------- |
+| 1    | "eat" | `"aet"`    | `{ "aet": ["eat"] }`                    |
+| 2    | "tea" | `"aet"`    | `{ "aet": ["eat", "tea"] }`             |
+| 3    | "tan" | `"ant"`    | `{ "aet": [...], "ant": ["tan"] }`      |
+| 4    | "ate" | `"aet"`    | `{ "aet": [..., "ate"], "ant": [...] }` |
+| 5    | "nat" | `"ant"`    | `{ "aet": [...], "ant": [..., "nat"] }` |
+| 6    | "bat" | `"abt"`    | `{ ..., "abt": ["bat"] }`               |
+
+**Output:**
+
+```python
+[["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
+```
 ---
 
 ## 💬 Interview Notes
