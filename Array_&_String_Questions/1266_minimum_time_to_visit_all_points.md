@@ -2,7 +2,7 @@
 
 ---
 
-## 📘 Problem Description
+## 📘 Problem Descriptions
 
 You're given an array `points` where `points[i] = [xi, yi]` represents a point on the 2D plane.
 
