@@ -2,7 +2,7 @@
 
 ---
 
-## 🧩 Problem Description
+## 🧩 Problem Descriptions
 
 Given an integer array `arr`, return the length of the longest mountain.
 
