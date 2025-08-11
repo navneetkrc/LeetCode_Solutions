@@ -51,7 +51,7 @@ Find two numbers `a` and `b` in the array such that:
 a + b == target
 ```
 
-Return their indices.
+Return their indices. So need to store such that indices are readily available
 
 ---
 
