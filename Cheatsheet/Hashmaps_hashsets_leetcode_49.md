@@ -1,4 +1,4 @@
-# Hashmaps Revised
+# Hashmaps Revised Important Questions
 ## LC 49 Group Anagrams – Interview Guide
 
 ---
