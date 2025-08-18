@@ -30,6 +30,10 @@ Rotation means shifting elements cyclically.
 
 ---
 
+<img width="1024" height="1536" alt="image" src="https://github.com/user-attachments/assets/c705efb7-4627-44ba-b5e9-721818e6b3bc" />
+
+---
+
 ## 🚀 Approaches
 
 ### 🔴 Approach 1: Brute Force (❌ TLE)
