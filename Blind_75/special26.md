@@ -1,22 +1,8 @@
-Awesome 👍 Let’s now **prioritize these 26 patterns** into
-
-* 🔥 **High-Frequency (Must-Practice First)** → repeatedly asked in FAANG/eBay-type interviews.
-* ⚡ **Medium-Frequency (Important but Secondary)** → good to know, sometimes combined with others.
-* 🌱 **Advanced (Rare but differentiating)** → rarely directly asked, but useful for graph/system design rounds.
-
-I’ll also sprinkle in **extra details, pitfalls, and quick reminders**.
+# 🐍 Python Interview Cheatsheet (with LeetCode references)
 
 ---
 
-# 🐍 Python Interview Cheatsheet (with LeetCode & Priority)
-
----
-
-## 🔥 High-Frequency Must-Practice
-
----
-
-### 1. Two Pointers: One Input, Opposite Ends
+## 1. Two Pointers: One Input, Opposite Ends
 
 ```python
 def is_palindrome(word: str) -> bool:
@@ -29,152 +15,155 @@ def is_palindrome(word: str) -> bool:
     return True
 ```
 
-**LeetCode:**
+✅ **Key Uses**: Palindrome check, two-sum sorted array, trapping rain water.
+📌 **LeetCode**:
 
-* 125. Valid Palindrome
-* 344. Reverse String
-* 680. Valid Palindrome II
-
-📌 **Notes:** Use for palindromes, 2-sum (sorted), water container. Watch **off-by-one errors**.
+* **125. Valid Palindrome**
+* **11. Container With Most Water**
+* **42. Trapping Rain Water**
 
 ---
 
-### 2. Two Pointers: Two Inputs
+## 2. Two Pointers: Two Inputs, Exhaust Both
 
 ```python
-def merge_sorted_arrays(arr1, arr2):
-    i, j = 0, 0
-    merged = []
-    while i < len(arr1) and j < len(arr2):
-        if arr1[i] <= arr2[j]:
-            merged.append(arr1[i]); i += 1
+def merge_sorted_lists(list1, list2):
+    i, j, merged = 0, 0, []
+    while i < len(list1) and j < len(list2):
+        if list1[i] < list2[j]:
+            merged.append(list1[i]); i += 1
         else:
-            merged.append(arr2[j]); j += 1
-    merged.extend(arr1[i:]); merged.extend(arr2[j:])
-    return merged
+            merged.append(list2[j]); j += 1
+    return merged + list1[i:] + list2[j:]
 ```
 
-**LeetCode:**
+✅ **Key Uses**: Merging, LCS, subsequence check.
+📌 **LeetCode**:
 
-* 21. Merge Two Sorted Lists
-* 88. Merge Sorted Array
-* 977. Squares of a Sorted Array
-
-📌 **Notes:** Always watch **boundary conditions**.
+* **21. Merge Two Sorted Lists**
+* **88. Merge Sorted Array**
+* **392. Is Subsequence**
 
 ---
 
-### 3. Sliding Window
+## 3. Sliding Window
 
 ```python
-def longest_substring_no_repeat(s: str) -> int:
-    seen, left, max_len = {}, 0, 0
+def longest_unique_substring(s: str) -> int:
+    window, left, max_len = {}, 0, 0
     for right, char in enumerate(s):
-        if char in seen and seen[char] >= left:
-            left = seen[char] + 1
-        seen[char] = right
+        if char in window and window[char] >= left:
+            left = window[char] + 1
+        window[char] = right
         max_len = max(max_len, right - left + 1)
     return max_len
 ```
 
-**LeetCode:**
+✅ **Key Uses**: Longest substring, subarray sums, anagrams.
+📌 **LeetCode**:
 
-* 3. Longest Substring Without Repeating Characters
-* 209. Minimum Size Subarray Sum
-* 76. Minimum Window Substring
-
-📌 **Notes:** Two flavors — **fixed length window** and **variable length**.
+* **3. Longest Substring Without Repeating Characters**
+* **76. Minimum Window Substring**
+* **567. Permutation in String**
 
 ---
 
-### 4. Prefix Sum
+## 4. Prefix Sum
 
 ```python
-def build_prefix_sum(nums):
-    prefix = [0]
+def subarray_sum(nums, k):
+    prefix, count, seen = 0, 0, {0: 1}
     for num in nums:
-        prefix.append(prefix[-1] + num)
-    return prefix
+        prefix += num
+        count += seen.get(prefix - k, 0)
+        seen[prefix] = seen.get(prefix, 0) + 1
+    return count
 ```
 
-**LeetCode:**
+✅ **Key Uses**: Range sum queries, subarray sum problems.
+📌 **LeetCode**:
 
-* 560. Subarray Sum Equals K
-* 303. Range Sum Query - Immutable
-* 238. Product of Array Except Self (variation)
-
-📌 **Notes:** Often combined with **hashmaps** for subarray problems.
+* **560. Subarray Sum Equals K**
+* **303. Range Sum Query - Immutable**
+* **238. Product of Array Except Self**
 
 ---
 
-### 6. Linked List: Fast & Slow Pointer
+## 5. Efficient String Building
 
 ```python
-def detect_cycle(head):
-    slow = fast = head
+def build_string(words):
+    return "".join(words)
+```
+
+✅ Use `"".join()` instead of repeated concatenation.
+📌 **LeetCode**:
+
+* **415. Add Strings**
+* **67. Add Binary**
+
+---
+
+## 6. Linked List: Fast & Slow Pointers
+
+```python
+def has_cycle(head):
+    slow, fast = head, head
     while fast and fast.next:
         slow, fast = slow.next, fast.next.next
-        if slow == fast: return True
+        if slow == fast:
+            return True
     return False
 ```
 
-**LeetCode:**
+✅ **Key Uses**: Cycle detection, middle node.
+📌 **LeetCode**:
 
-* 141. Linked List Cycle
-* 142. Linked List Cycle II
-* 876. Middle of the Linked List
-
-📌 **Notes:** Tortoise-Hare → find cycle, detect midpoint.
+* **141. Linked List Cycle**
+* **876. Middle of the Linked List**
 
 ---
 
-### 7. Reverse Linked List
+## 7. Reverse Linked List
 
 ```python
 def reverse_list(head):
     prev, curr = None, head
     while curr:
-        nxt = curr.next
-        curr.next, prev, curr = prev, curr, nxt
+        next_node, curr.next = curr.next, prev
+        prev, curr = curr, next_node
     return prev
 ```
 
-**LeetCode:**
+📌 **LeetCode**:
 
-* 206. Reverse Linked List
-* 92. Reverse Linked List II
-* 25. Reverse Nodes in k-Group
-
-📌 **Notes:** Foundation for **list manipulation**.
+* **206. Reverse Linked List**
 
 ---
 
-### 8. Count Subarrays (Prefix + Hashmap)
+## 8. Count Subarrays with Criteria
 
 ```python
-def count_subarrays_sum_k(nums, k):
-    count, prefix_sum, freq = 0, 0, {0: 1}
+def count_subarrays(nums, k):
+    prefix, seen, count = 0, {0: 1}, 0
     for num in nums:
-        prefix_sum += num
-        count += freq.get(prefix_sum - k, 0)
-        freq[prefix_sum] = freq.get(prefix_sum, 0) + 1
+        prefix += num
+        count += seen.get(prefix - k, 0)
+        seen[prefix] = seen.get(prefix, 0) + 1
     return count
 ```
 
-**LeetCode:**
+📌 **LeetCode**:
 
-* 560. Subarray Sum Equals K
-* 1248. Count Number of Nice Subarrays
-* 930. Binary Subarrays With Sum
-
-📌 **Notes:** Master this → asked **a lot**. Time O(n), space O(n).
+* **560. Subarray Sum Equals K**
+* **1248. Count Number of Nice Subarrays**
 
 ---
 
-### 9. Monotonic Stack
+## 9. Monotonic Increasing Stack
 
 ```python
-def next_greater_elements(nums):
+def next_greater(nums):
     stack, result = [], [-1] * len(nums)
     for i, num in enumerate(nums):
         while stack and nums[stack[-1]] < num:
@@ -183,39 +172,122 @@ def next_greater_elements(nums):
     return result
 ```
 
-**LeetCode:**
+📌 **LeetCode**:
 
-* 739. Daily Temperatures
-* 496. Next Greater Element I
-* 84. Largest Rectangle in Histogram
-
-📌 **Notes:** Used for **stock span, histogram area, parenthesis validation**. Very frequent.
+* **739. Daily Temperatures**
+* **496. Next Greater Element I**
+* **84. Largest Rectangle in Histogram**
 
 ---
 
-### 10–12. Binary Tree Traversals
+## 10. Binary Tree DFS (Recursive)
 
-* DFS Recursive → 104, 112, 437
-* DFS Iterative → 94, 144, 145
-* BFS → 102, 103, 107
+```python
+def dfs_recursive(node):
+    if not node: return []
+    return dfs_recursive(node.left) + [node.val] + dfs_recursive(node.right)
+```
 
-📌 **Notes:** Learn **inorder vs preorder vs postorder** differences.
-BFS = queue, DFS = recursion/stack.
+📌 **LeetCode**:
 
----
-
-### 13–15. Graph Search
-
-* DFS Recursive → 200, 695, 547
-* DFS Iterative → 133, 417
-* BFS → 127, 286, 994
-
-📌 **Notes:** Graphs often given as **grid**, adjacency list, or edge list.
-Watch out for **visited set** mistakes.
+* **94. Binary Tree Inorder Traversal**
+* **104. Maximum Depth of Binary Tree**
 
 ---
 
-### 16. Top K (Heap)
+## 11. Binary Tree DFS (Iterative)
+
+```python
+def dfs_iterative(root):
+    stack, result = [root], []
+    while stack:
+        node = stack.pop()
+        if node:
+            result.append(node.val)
+            stack.append(node.right)
+            stack.append(node.left)
+    return result
+```
+
+📌 **LeetCode**:
+
+* **144. Binary Tree Preorder Traversal**
+
+---
+
+## 12. Binary Tree BFS
+
+```python
+from collections import deque
+def bfs(root):
+    queue, result = deque([root]), []
+    while queue:
+        node = queue.popleft()
+        if node:
+            result.append(node.val)
+            queue.extend([node.left, node.right])
+    return result
+```
+
+📌 **LeetCode**:
+
+* **102. Binary Tree Level Order Traversal**
+
+---
+
+## 13. Graph DFS (Recursive)
+
+```python
+def dfs_recursive(graph, node, visited):
+    if node in visited: return
+    visited.add(node)
+    for nei in graph[node]:
+        dfs_recursive(graph, nei, visited)
+```
+
+📌 **LeetCode**:
+
+* **200. Number of Islands**
+* **547. Number of Provinces**
+
+---
+
+## 14. Graph DFS (Iterative)
+
+```python
+def dfs_iterative(graph, start):
+    stack, visited = [start], set()
+    while stack:
+        node = stack.pop()
+        if node not in visited:
+            visited.add(node)
+            stack.extend(graph[node])
+    return visited
+```
+
+---
+
+## 15. Graph BFS
+
+```python
+def bfs_graph(graph, start):
+    queue, visited = deque([start]), set([start])
+    while queue:
+        node = queue.popleft()
+        for nei in graph[node]:
+            if nei not in visited:
+                visited.add(nei)
+                queue.append(nei)
+```
+
+📌 **LeetCode**:
+
+* **133. Clone Graph**
+* **127. Word Ladder**
+
+---
+
+## 16. Top K Elements with Heap
 
 ```python
 import heapq
@@ -223,108 +295,201 @@ def top_k(nums, k):
     return heapq.nlargest(k, nums)
 ```
 
-**LeetCode:**
+📌 **LeetCode**:
 
-* 215. Kth Largest Element in an Array
-* 347. Top K Frequent Elements
-* 973. K Closest Points to Origin
-
-📌 **Notes:** Use `heapq.nlargest` for clarity; `heapq.heappush`/`heappop` for custom.
+* **347. Top K Frequent Elements**
+* **215. Kth Largest Element in Array**
 
 ---
 
-### 17–20. Binary Search Variants
-
-* 704. Binary Search
-* 35. Search Insert Position
-* 278. First Bad Version
-* 34. First/Last Position of Element
-* 875. Koko Eating Bananas
-* 1011. Capacity to Ship Packages
-
-📌 **Notes:** Variants:
-
-* **Leftmost insertion** (`bisect_left`)
-* **Rightmost insertion** (`bisect_right-1`)
-* **Greedy param search** → "minimum feasible capacity".
-
----
-
-### 21. Backtracking
+## 17. Binary Search (Classic)
 
 ```python
-def subsets(nums):
-    result = []
-    def backtrack(start, path):
-        result.append(path[:])
-        for i in range(start, len(nums)):
-            backtrack(i+1, path+[nums[i]])
-    backtrack(0, [])
-    return result
+def binary_search(nums, target):
+    left, right = 0, len(nums) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if nums[mid] == target: return mid
+        elif nums[mid] < target: left = mid + 1
+        else: right = mid - 1
+    return -1
 ```
 
-**LeetCode:**
+📌 **LeetCode**:
 
-* 46. Permutations
-* 78. Subsets
-* 39. Combination Sum
-* 22. Generate Parentheses
-
-📌 **Notes:** Pattern = **choose → recurse → unchoose**.
+* **704. Binary Search**
 
 ---
 
-### 22. DP Top-down
+## 18. Binary Search: Left-Most Insert
+
+```python
+import bisect
+pos = bisect.bisect_left([1,2,2,3], 2)  # -> 1
+```
+
+📌 **LeetCode**:
+
+* **34. Find First and Last Position of Element**
+
+---
+
+## 19. Binary Search: Right-Most Insert
+
+```python
+import bisect
+pos = bisect.bisect_right([1,2,2,3], 2)  # -> 3
+```
+
+---
+
+## 20. Binary Search for Greedy
+
+```python
+def minimize_max(nums):
+    left, right = min(nums), max(nums)
+    while left < right:
+        mid = (left + right) // 2
+        if can_do(mid):
+            right = mid
+        else:
+            left = mid + 1
+    return left
+```
+
+📌 **LeetCode**:
+
+* **410. Split Array Largest Sum**
+* **875. Koko Eating Bananas**
+
+---
+
+## 21. Backtracking
+
+```python
+def backtrack(path, options):
+    if not options:
+        print(path); return
+    for i, choice in enumerate(options):
+        backtrack(path+[choice], options[:i]+options[i+1:])
+```
+
+📌 **LeetCode**:
+
+* **46. Permutations**
+* **39. Combination Sum**
+
+---
+
+## 22. DP: Top-Down Memoization
 
 ```python
 from functools import lru_cache
+@lru_cache(None)
 def fib(n):
-    @lru_cache(None)
-    def helper(x):
-        if x < 2: return x
-        return helper(x-1) + helper(x-2)
-    return helper(n)
+    if n < 2: return n
+    return fib(n-1) + fib(n-2)
 ```
 
-**LeetCode:**
+📌 **LeetCode**:
 
-* 70. Climbing Stairs
-* 198. House Robber
-* 322. Coin Change
-
-📌 **Notes:** Always try top-down first → easier to debug.
+* **70. Climbing Stairs**
+* **198. House Robber**
 
 ---
 
-## ⚡ Medium-Frequency
+## 23. Build a Trie
 
-* 5. Efficient String Building (`"".join`) → 443, 68
-* 23. Build a Trie → 208, 211, 212
+```python
+class TrieNode:
+    def __init__(self):
+        self.children, self.is_end = {}, False
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+    def insert(self, word):
+        node = self.root
+        for ch in word:
+            node = node.children.setdefault(ch, TrieNode())
+        node.is_end = True
+```
 
-📌 **Notes:** Rarely standalone, often used inside word search / autocomplete.
+📌 **LeetCode**:
 
----
-
-## 🌱 Advanced / Rare
-
-* 24. Dijkstra → 743, 787
-* 25. Prim → 1135 (MST)
-* 26. Kruskal → 1584 (MST)
-
-📌 **Notes:** Rare in short interviews, but show up in **system design or graph-heavy companies**.
-
----
-
-# ✅ Summary Priority
-
-* 🔥 **First focus (core interview set):**
-  Two pointers, sliding window, prefix sum, linked list ops, subarray sums, monotonic stack, tree/graph traversals, binary search variants, backtracking, DP.
-
-* ⚡ **Second (sometimes asked):**
-  Efficient string building, trie.
-
-* 🌱 **Third (rare/advanced):**
-  Dijkstra, Prim, Kruskal.
+* **208. Implement Trie**
+* **211. Add and Search Word**
 
 ---
 
+## 24. Dijkstra’s Algorithm
+
+```python
+import heapq
+def dijkstra(graph, start):
+    pq, dist = [(0,start)], {start: 0}
+    while pq:
+        d, node = heapq.heappop(pq)
+        for nei, w in graph[node]:
+            new_dist = d + w
+            if new_dist < dist.get(nei, float("inf")):
+                dist[nei] = new_dist
+                heapq.heappush(pq, (new_dist, nei))
+    return dist
+```
+
+📌 **LeetCode**:
+
+* **743. Network Delay Time**
+
+---
+
+## 25. Prim’s Algorithm (MST)
+
+```python
+import heapq
+def prim(graph, start):
+    visited, edges, mst = set([start]), [(0, start)], 0
+    while edges:
+        cost, node = heapq.heappop(edges)
+        if node not in visited:
+            mst += cost
+            visited.add(node)
+            for nei, w in graph[node]:
+                heapq.heappush(edges, (w, nei))
+    return mst
+```
+
+📌 **LeetCode**:
+
+* **1135. Connecting Cities With Minimum Cost**
+
+---
+
+## 26. Kruskal’s Algorithm (MST with Union-Find)
+
+```python
+def kruskal(n, edges):
+    parent = list(range(n))
+    def find(x):
+        while x != parent[x]:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+    def union(x, y):
+        parent[find(x)] = find(y)
+
+    mst = 0
+    for w,u,v in sorted(edges):
+        if find(u) != find(v):
+            union(u,v)
+            mst += w
+    return mst
+```
+
+📌 **LeetCode**:
+
+* **1584. Min Cost to Connect All Points**
+
+---
+
+⚡ This covers **all major coding patterns + LeetCode mappings**.
