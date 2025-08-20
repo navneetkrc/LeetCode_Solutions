@@ -23,7 +23,7 @@ def has_pair_with_sum(sorted_array, target_sum):
     return False
 ```
 
-- **LeetCode Types**: Two Sum II (167), Valid Palindrome (125), Trapping Rain Water (42), Container With Most Water (11), Reverse String (344)
+- **LeetCode Types**: Two Sum II (167), Valid Palindrome (125), Trapping Rain Water (42)(Hard), Container With Most Water (11) Medium, Reverse String (344)
 - **Showcase**: O(n) optimization over brute-force, why the array must be sorted, edge case handling (duplicates, negatives)
 
 ***
