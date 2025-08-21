@@ -54,12 +54,25 @@ def merge_sorted_arrays(array_one, array_two):
 ## 3. Sliding Window
 
 ```python
-def max_subarray_sum(nums, window_size):
-    max_sum = curr_sum = sum(nums[:window_size])
-    for end in range(window_size, len(nums)):
-        curr_sum += nums[end] - nums[end - window_size]
-        max_sum = max(max_sum, curr_sum)
+
+from typing import List
+
+def max_subarray_sum(nums: List[int], k: int) -> int:
+    """Return maximum sum of any contiguous subarray of size k."""
+    if k > len(nums):
+        return 0  # or raise ValueError depending on interview discussion
+    
+    # Initial window sum
+    window_sum = sum(nums[:k])
+    max_sum = window_sum
+
+    # Slide the window
+    for i in range(k, len(nums)):
+        window_sum += nums[i] - nums[i - k]
+        max_sum = max(max_sum, window_sum)
+    
     return max_sum
+
 ```
 
 - **LeetCode Types**: Maximum Average Subarray I (643), Longest Substring Without Repeating Characters (3), Minimum Size Subarray Sum (209), Longest Repeating Character Replacement (424)
@@ -70,11 +83,35 @@ def max_subarray_sum(nums, window_size):
 ## 4. Build a Prefix Sum
 
 ```python
-def get_prefix_sums(input_array):
-    prefix_sums = [^0]
-    for number in input_array:
-        prefix_sums.append(prefix_sums[-1] + number)
+from typing import List
+
+def get_prefix_sums(nums: List[int]) -> List[int]:
+    """
+    Returns the prefix sum array.
+    prefix_sums[i] = sum of nums[0..i-1]
+    """
+    prefix_sums = [0]
+    for num in nums:
+        prefix_sums.append(prefix_sums[-1] + num)
     return prefix_sums
+
+
+def range_sum(prefix_sums: List[int], left: int, right: int) -> int:
+    """
+    Returns the sum of nums[left..right] in O(1) time.
+    Assumes prefix_sums is built using get_prefix_sums().
+    """
+    return prefix_sums[right + 1] - prefix_sums[left]
+
+
+# Example Usage
+nums = [2, 4, 5, 7, 8]
+prefix = get_prefix_sums(nums)
+
+print(prefix)                 # [0, 2, 6, 11, 18, 26]
+print(range_sum(prefix, 1, 3)) # sum of nums[1..3] = 4 + 5 + 7 = 16
+
+
 ```
 
 - **LeetCode Types**: Range Sum Query - Immutable (303), Subarray Sum Equals K (560), Find Pivot Index (724)
