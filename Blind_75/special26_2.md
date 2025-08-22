@@ -342,7 +342,180 @@ def bfs_level_order(root_node):
 - **Showcase**: Level-wise traversal, queue mechanics, real world use (shortest path, finding minimum)
 
 ***
+Tree related FAQs
+---
+Perfect 🔥 — 
+This is one of the **most asked interview prep topics**.
+Let’s make this **interview-ready cheat sheet** with **Recursive + Iterative** implementations for both **DFS** (inorder / preorder / postorder) and **BFS (level order)**.
 
+---
+
+# 🌳 DFS (Depth-First Search)
+
+### 1️⃣ Recursive Inorder DFS (Left → Root → Right)
+
+```python
+def inorder_recursive(root):
+    result = []
+    def dfs(node):
+        if not node:
+            return
+        dfs(node.left)
+        result.append(node.val)
+        dfs(node.right)
+    dfs(root)
+    return result
+```
+
+### 2️⃣ Iterative Inorder DFS
+
+```python
+def inorder_iterative(root):
+    result, stack = [], []
+    curr = root
+    while curr or stack:
+        while curr:                # Go left as far as possible
+            stack.append(curr)
+            curr = curr.left
+        curr = stack.pop()         # Visit node
+        result.append(curr.val)
+        curr = curr.right          # Go right
+    return result
+```
+
+---
+
+### 3️⃣ Recursive Preorder DFS (Root → Left → Right)
+
+```python
+def preorder_recursive(root):
+    result = []
+    def dfs(node):
+        if not node:
+            return
+        result.append(node.val)
+        dfs(node.left)
+        dfs(node.right)
+    dfs(root)
+    return result
+```
+
+### 4️⃣ Iterative Preorder DFS
+
+```python
+def preorder_iterative(root):
+    if not root:
+        return []
+    result, stack = [], [root]
+    while stack:
+        node = stack.pop()
+        result.append(node.val)
+        if node.right:   # Push right first so left is processed first
+            stack.append(node.right)
+        if node.left:
+            stack.append(node.left)
+    return result
+```
+
+---
+
+### 5️⃣ Recursive Postorder DFS (Left → Right → Root)
+
+```python
+def postorder_recursive(root):
+    result = []
+    def dfs(node):
+        if not node:
+            return
+        dfs(node.left)
+        dfs(node.right)
+        result.append(node.val)
+    dfs(root)
+    return result
+```
+
+### 6️⃣ Iterative Postorder DFS
+
+```python
+def postorder_iterative(root):
+    if not root:
+        return []
+    result, stack = [], [root]
+    while stack:
+        node = stack.pop()
+        result.append(node.val)
+        if node.left:
+            stack.append(node.left)
+        if node.right:
+            stack.append(node.right)
+    return result[::-1]  # Reverse to get Left → Right → Root
+```
+
+---
+
+# 🌳 BFS (Breadth-First Search)
+
+### 7️⃣ Recursive BFS (Level Order)
+
+Uses recursion + helper with depth tracking.
+
+```python
+from collections import defaultdict
+
+def bfs_recursive(root):
+    levels = defaultdict(list)
+
+    def traverse(node, depth):
+        if not node:
+            return
+        levels[depth].append(node.val)
+        traverse(node.left, depth + 1)
+        traverse(node.right, depth + 1)
+
+    traverse(root, 0)
+    return [levels[d] for d in sorted(levels.keys())]
+```
+
+### 8️⃣ Iterative BFS (Level Order using Queue)
+
+```python
+from collections import deque
+
+def bfs_iterative(root):
+    if not root:
+        return []
+    result = []
+    queue = deque([root])
+    while queue:
+        level_size = len(queue)
+        level = []
+        for _ in range(level_size):
+            node = queue.popleft()
+            level.append(node.val)
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        result.append(level)
+    return result
+```
+
+---
+
+# ✅ Interview Takeaways
+
+* **DFS** explores depth-first (stack or recursion).
+
+  * Inorder → BST gives **sorted order** (super common).
+  * Preorder → used for **tree construction problems**.
+  * Postorder → used in **deletion / bottom-up DP**.
+* **BFS** explores level-by-level (queue).
+
+  * Used for **shortest path in unweighted graphs** & **level problems**.
+
+---
+
+---
 ## 13. Graph: DFS (Recursive)
 
 ```python
@@ -361,6 +534,7 @@ def dfs_recursive(graph, start_node, visited=None):
 
 ***
 
+---
 ## 14. Graph: DFS (Iterative)
 
 ```python
