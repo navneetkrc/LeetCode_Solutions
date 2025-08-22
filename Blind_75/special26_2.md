@@ -134,33 +134,76 @@ def join_words(word_list):
 ## 6. Linked List: Fast and Slow Pointer
 
 ```python
-def has_cycle(head_node):
-    fast_pointer = slow_pointer = head_node
-    while fast_pointer and fast_pointer.next:
-        slow_pointer = slow_pointer.next
-        fast_pointer = fast_pointer.next.next
-        if slow_pointer == fast_pointer:
-            return True
-    return False
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, val: int = 0, next: 'ListNode' = None):
+        self.val = val
+        self.next = next
+
+
+class Solution:
+    def hasCycle(self, head: ListNode) -> bool:
+        """
+        Detect if a linked list has a cycle using Floyd's Cycle Detection.
+        Time Complexity: O(n)
+        Space Complexity: O(1)
+        """
+        slow, fast = head, head
+
+        while fast and fast.next:
+            slow = slow.next          # Move slow pointer by 1
+            fast = fast.next.next     # Move fast pointer by 2
+
+            if slow == fast:          # Cycle detected
+                return True
+
+        return False
+
 ```
 
 - **LeetCode Types**: Linked List Cycle (141), Middle of the Linked List (876), Linked List Cycle II (142)
 - **Showcase**: O(1) space and why fast/slow works, cycle detection, finding midpoint
 
+
+✅ Key Interview Notes
+
+Why Floyd’s Algorithm?
+It detects cycles in O(n) time with O(1) extra space, better than using a hash set.
+
+Pitfalls to avoid
+
+Forgetting to check fast and fast.next before accessing fast.next.next (NullPointer bug).
+
+Misplacing slow = slow.next and fast = fast.next.next order.
 ***
 
 ## 7. Reversing a Linked List
 
 ```python
-def reverse_linked_list(head_node):
-    previous_node = None
-    current_node = head_node
-    while current_node:
-        next_node = current_node.next
-        current_node.next = previous_node
-        previous_node = current_node
-        current_node = next_node
-    return previous_node
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, val: int = 0, next: 'ListNode' = None):
+        self.val = val
+        self.next = next
+
+
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        """
+        Reverse a singly linked list.
+        Time Complexity: O(n)  - traverse all nodes once
+        Space Complexity: O(1) - constant extra space
+        """
+        prev, curr = None, head
+
+        while curr:
+            nxt = curr.next      # Save next node
+            curr.next = prev     # Reverse link
+            prev = curr          # Move prev forward
+            curr = nxt           # Move curr forward
+
+        return prev   # New head of reversed list
+
 ```
 
 - **LeetCode Types**: Reverse Linked List (206), Palindrome Linked List (234), Add Two Numbers II (445)
@@ -171,16 +214,36 @@ def reverse_linked_list(head_node):
 ## 8. Find Number of Subarrays that Fit Criteria
 
 ```python
-def count_subarrays_with_sum(nums, target_sum):
-    from collections import defaultdict
-    prefix_sum_count = defaultdict(int)
-    prefix_sum_count = 1
-    curr_sum = count = 0
-    for num in nums:
-        curr_sum += num
-        count += prefix_sum_count[curr_sum - target_sum]
-        prefix_sum_count[curr_sum] += 1
-    return count
+from collections import defaultdict
+from typing import List
+
+
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        """
+        Count the number of subarrays whose sum equals k.
+
+        Approach:
+        - Use prefix sum and a hashmap to store frequency of sums.
+        - For each prefix_sum, check if (prefix_sum - k) exists in hashmap.
+        - If yes, add its frequency to result.
+
+        Time Complexity: O(n)   - single pass through nums
+        Space Complexity: O(n)  - hashmap for prefix sums
+        """
+        prefix_sum_count = defaultdict(int)
+        prefix_sum_count[0] = 1   # Important: prefix sum 0 occurs once
+
+        prefix_sum = 0
+        count = 0
+
+        for num in nums:
+            prefix_sum += num
+            count += prefix_sum_count[prefix_sum - k]
+            prefix_sum_count[prefix_sum] += 1
+
+        return count
+
 ```
 
 - **LeetCode Types**: Subarray Sum Equals K (560), Minimum Size Subarray Sum (209)
@@ -191,14 +254,32 @@ def count_subarrays_with_sum(nums, target_sum):
 ## 9. Monotonic Increasing Stack
 
 ```python
-def next_smaller_elements(nums):
-    stack = []
-    result = [-1] * len(nums)
-    for idx, value in enumerate(nums):
-        while stack and nums[stack[-1]] > value:
-            result[stack.pop()] = value
-        stack.append(idx)
+from typing import List
+
+def next_smaller_elements(nums: List[int]) -> List[int]:
+    """
+    Finds the Next Smaller Element (NSE) for each element in the array.
+    For each index i, result[i] is the first smaller element to the right of nums[i],
+    or -1 if no such element exists.
+
+    Example:
+        nums = [4, 8, 5, 2, 25]
+        result = [2, 5, 2, -1, -1]
+    """
+    n = len(nums)
+    result = [-1] * n
+    stack = []  # stores indices of elements in a monotonic increasing order
+
+    for current_index, current_value in enumerate(nums):
+        # Pop elements from stack while current_value is smaller
+        while stack and nums[stack[-1]] > current_value:
+            top_index = stack.pop()
+            result[top_index] = current_value
+
+        stack.append(current_index)
+
     return result
+
 ```
 
 - **LeetCode Types**: Next Greater Element I/II (496/503), Daily Temperatures (739), Largest Rectangle in Histogram (84)
