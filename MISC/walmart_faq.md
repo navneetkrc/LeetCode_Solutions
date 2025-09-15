@@ -1,5 +1,8 @@
 ---
+<img width="2400" height="1600" alt="image" src="https://github.com/user-attachments/assets/72d6c49b-e260-4746-ae6f-0bfa6fa294c6" />
 
+
+---
 ## 🚀 Interview Prep Cheat Sheet: Key Ideas & Algorithms
 
 Here are the core concepts and data structures needed to tackle these common interview problems.
